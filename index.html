@@ -3,21 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="/styles/style.css">
 </head>
 <body>
-    <h1>Todo list</h1>
+    <h1>My Todos</h1>
     <div>
-        <input type="text" placeholder="Insert Title here">
-        <input type="text" placeholder="Insert Text here">
+        <input id="text-input" type="text" placeholder="Add something to do...">
+        <button id="create-todo" type="button">Save</button>
     </div>
-    <button id="create-todo" type="button">Create todo list</button>
-
     <div id="todo-list" class="todo-container">
-        <h1 id="todo-title">Title</h1>
-        <p id="todo-text">Note</p>
     </div>
 
 </body>
+
+<script defer src="scripts/script.js"></script>
 </html>
