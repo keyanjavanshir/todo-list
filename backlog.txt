@@ -1,0 +1,27 @@
+// Simple version
+
+The goal is to create a todo list
+The user can input a title for the todo-list and a description
+
+This data will be saved in localStorage using setLocalStorage() and will be shown used getLocalStorage() // Remember to use JSON.stringify
+Each time the user presses the create todo list,
+The software will go through our localStorage and display the info through a JSON.parse()
+
+
+The software should be able to:
+
+1. Create new todo notes
+2. Delete existing todo notes
+3. Updating existing todo notes
+4. Check off existing notes to log if the action has been completed
+
+
+
+
+// Advanced version
+
+In the advanced todo list, we will develop a REST API
+That means, creating a collection using MongoDB and saving the data for each todo using CRUD operations
+
+Instead of using localStorage, we can create the skeleton for a REST application that can access real data
+The goal is to visualise the data by creating forms through the database, this could either be through handlebars or plain javascript
