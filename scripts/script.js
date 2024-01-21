@@ -1,12 +1,12 @@
 const textInput = document.getElementById("text-input");
 const createTodoBtn = document.getElementById("create-todo");
 const todoList = document.getElementById("todo-list");
+const clearLocalStorage = document.getElementById("clear-ls");
 
 
 // Todo array 
 // This array will be stored in the localStorage
 let todoArray = [];
-
 
 // When clicking the save button
 // Call the pushToArray function
@@ -15,11 +15,27 @@ createTodoBtn.addEventListener("click", () => {
     if(textInput.value == "") {
         console.log("Please insert a value!");
     } else {
-        pushToArray(textInput.value, todoArray); 
-        localStorage.setItem("myTodos", `${JSON.stringify(todoArray)}`)
+        pushToArray(textInput.value, todoArray);                           // push values to array
+        localStorage.setItem("myTodos", `${JSON.stringify(todoArray)}`)    // save in localstorage
         textInput.value = "";
+        renderTodoList(todoArray);                                         // render local array
     }
 });
+
+
+
+clearLocalStorage.addEventListener("dblclick", () => {
+
+    if(JSON.parse(localStorage.getItem("myTodos")) == null) {
+        console.log("No elements in localstorage");
+    } else {
+        console.log("Clearing localstorage")
+        localStorage.clear();
+        todoArray = [];
+        todoList.innerHTML = "";
+    }
+});
+
 
 // The pushToArray function takes two parameters
 // A string that is equal to the value given from the input field
@@ -27,8 +43,7 @@ createTodoBtn.addEventListener("click", () => {
 // Then it calls the renderTodoList function
 // That renders the todo note
 pushToArray = (string, array) => {
-    todoArray.push(string);
-    renderTodoList(array);
+    todoArray.push(string, ...array); // Use spread operator to append elements onto existing array
 };
 
 
@@ -37,10 +52,13 @@ pushToArray = (string, array) => {
 // It has one parameter, which in this case is the todoArray
 renderTodoList = (array) => {
 
-    innerHTML = "";
+    let innerHTML = "";
+
+    console.log("Function renderTodoList:")
+    console.log(array);
  
     for(let i = 0; i < array.length; i++) {
-        innerHTML = `
+        innerHTML += `
             <div class="container">
                 <p>${array[i]}</p>
                 <button class="delete-button"> Delete </button>
@@ -48,7 +66,7 @@ renderTodoList = (array) => {
         `
     }
 
-    todoList.innerHTML += innerHTML;
+    todoList.innerHTML = innerHTML;
 
 }
 
@@ -60,7 +78,6 @@ renderTodoList = (array) => {
 todoList.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete-button")) {
         console.log("Deleted post!");
-        localStorage.clear();
     }
 });
 
@@ -72,16 +89,23 @@ todoList.addEventListener("click", (e) => {
 // and render the elements
 
 onBoot = () => {
-    let storageArray = JSON.parse(localStorage.getItem("myTodos"));
 
-    console.log(storageArray[0]);
+    let getDataFromLocalStorage = JSON.parse(localStorage.getItem("myTodos"));
+
+    if(getDataFromLocalStorage == null) {
+        console.log("No data in localstorage, function onBoot()");
+    } else {
+        console.log("Found data in localstorage, function onBoot()");
+        todoArray.push(...getDataFromLocalStorage); 
+        console.log(`Pushed ${getDataFromLocalStorage} to ${todoArray}`)
+        console.log(todoArray)
+    }
 
     // Should not render both arrays
     // Find the correct way to render arrays, which arrays to render?
     // renderTodoList should be refactored
     // how should onBoot be initialized? And which parameters should it use?
     renderTodoList(todoArray)
-    renderTodoList(storageArray);
 }
 
 onBoot();
