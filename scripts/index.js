@@ -18,9 +18,9 @@ render = (list) => {
 
     for(let i = 0; i < list.length; i++) {
         listItems += `
-            <div class="container">
+            <div id="${i}" class="container">
                 <p>${list[i]}</p>
-                <button class="delete-button"> Delete </button>
+                <button id="${i}" class="delete-button"> Delete </button>
             </div>
         `
     }
@@ -66,6 +66,7 @@ clearLocalStorage.addEventListener("dblclick", () => {
 // Therefore we add an Event Listener to the todoList variable, and listen for clicks
 // if the target (todoList) classList contains ("delete-button")
 todoList.addEventListener("click", (e) => {
+
     if (e.target.classList.contains("delete-button")) {
         console.log("Deleted post!");
     }
