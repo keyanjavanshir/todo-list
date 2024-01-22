@@ -96,16 +96,21 @@ onBoot = () => {
         console.log("No data in localstorage, function onBoot()");
     } else {
         console.log("Found data in localstorage, function onBoot()");
+        console.log(getDataFromLocalStorage)
+
+        /*
         todoArray.push(...getDataFromLocalStorage); 
         console.log(`Pushed ${getDataFromLocalStorage} to ${todoArray}`)
         console.log(todoArray)
+        */
     }
 
     // Should not render both arrays
     // Find the correct way to render arrays, which arrays to render?
     // renderTodoList should be refactored
     // how should onBoot be initialized? And which parameters should it use?
-    renderTodoList(todoArray)
+    // renderTodoList(todoArray)
+    renderTodoList(getDataFromLocalStorage)
 }
 
 onBoot();
