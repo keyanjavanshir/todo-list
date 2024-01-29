@@ -8,7 +8,6 @@ const dataFromLocalStorage = JSON.parse(localStorage.getItem("myTodos"));
 // This array will store values from localStorage
 let todoArray = [];
 
-
 // The renderTodoList function should first render all the todo notes
 // from the localStorage using localStorage.getItem("key", "value")
 // It has one parameter, which in this case is the todoArray
@@ -18,14 +17,15 @@ render = (list) => {
 
     for(let i = 0; i < list.length; i++) {
         listItems += `
-            <div id="${i}" class="container">
+            <div class="container">
                 <p>${list[i]}</p>
-                <button id="${i}" class="delete-button"> Delete </button>
+                <button class="delete-button"> Delete </button>
             </div>
         `
     }
 
     todoList.innerHTML = listItems;
+
 }
 
 
@@ -59,16 +59,24 @@ clearLocalStorage.addEventListener("dblclick", () => {
 
 
 
-
-
 // Since we are creating buttons using the innerHTML property in the
 // renderTodoList, we are not able to initalize the variables before they have been created
 // Therefore we add an Event Listener to the todoList variable, and listen for clicks
 // if the target (todoList) classList contains ("delete-button")
 todoList.addEventListener("click", (e) => {
-
     if (e.target.classList.contains("delete-button")) {
-        console.log("Deleted post!");
+        if(e.target.id == 0){
+            dataFromLocalStorage.shift()
+            localStorage.setItem("myTodos", JSON.stringify(dataFromLocalStorage))
+        } else {
+            dataFromLocalStorage.splice(e.target.id, e.target.id);
+            console.log(dataFromLocalStorage)
+            localStorage.setItem("myTodos", JSON.stringify(dataFromLocalStorage))
+            console.log(`Cleared localStorage at target ${e.target.id}`)
+        }
+        // console.log("Deleted post!");
+        // console.log(todoArray)
+        render(todoArray);
     }
 });
 
