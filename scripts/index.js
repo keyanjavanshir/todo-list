@@ -8,10 +8,28 @@ const dataFromLocalStorage = JSON.parse(localStorage.getItem("myTodos"));
 // This array will store values from localStorage
 let todoArray = [];
 
+
+// We need an on-start function that renders all elements
+// from localStorage when the client renders on boot.
+// It should retrieve all elements from the localStorage
+// and render the elements
+
+onBoot = () => {
+    if(dataFromLocalStorage === null || dataFromLocalStorage === "") {
+        console.log("No data found in localStorage")
+    } else {
+        console.log("Found data in localStorage");
+        todoArray = dataFromLocalStorage;
+        render(todoArray);
+    }
+}
+
+onBoot();
+
 // The renderTodoList function should first render all the todo notes
 // from the localStorage using localStorage.getItem("key", "value")
 // It has one parameter, which in this case is the todoArray
-render = (list) => {
+function render(list){
 
     let listItems = "";
 
@@ -79,22 +97,3 @@ todoList.addEventListener("click", (e) => {
         render(todoArray);
     }
 });
-
-
-
-// We need an on-start function that renders all elements
-// from localStorage when the client renders on boot.
-// It should retrieve all elements from the localStorage
-// and render the elements
-
-onBoot = () => {
-    if(dataFromLocalStorage == null) {
-        console.log("No data found in localStorage")
-    } else {
-        console.log("Found data in localStorage");
-        todoArray = dataFromLocalStorage;
-        render(todoArray);
-    }
-}
-
-onBoot();
